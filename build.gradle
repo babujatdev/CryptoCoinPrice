@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+}
+
+group 'com.cryptocoinprice'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.javacord:javacord:3.2.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    runtimeOnly 'org.apache.logging.log4j:log4j-core:2.11.0'
+}
+
+task stage(dependsOn: ['build','shadowJar', 'clean', 'test'])
+build.mustRunAfter clean
+build.mustRunAfter test
+
+test {
+    useJUnitPlatform()
+}
+jar {
+    manifest {
+        attributes 'Class-Path': '/libs/CryptoCoinPrice-1.0-all.jar', 'Main-Class': 'crypto.coin.Main'
+    }
+}
