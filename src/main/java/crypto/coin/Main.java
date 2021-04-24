@@ -1,6 +1,7 @@
 package crypto.coin;
 
 import crypto.coin.commands.DogeRate;
+import crypto.coin.commands.OpeningBalance;
 import crypto.coin.commands.Ping;
 import crypto.coin.commands.Prices;
 import net.dv8tion.jda.api.JDA;
@@ -19,6 +20,7 @@ public class Main {
             jda.addEventListener(new Prices());
             jda.addEventListener(new Ping());
             jda.addEventListener(new DogeRate());
+            jda.addEventListener(new OpeningBalance());
             //System.out.println(api.createBotInvite());
             //api.addListener(new Ping());
             //api.addListener(new Prices());

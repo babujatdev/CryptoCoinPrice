@@ -14,23 +14,23 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import java.awt.*;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class DogeRate extends ListenerAdapter {
-
-    public DogeRate() {
+      public DogeRate() {
     }
 
     @Override
     public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
         super.onGuildMessageReceived(event);
-
         try {
             Message message = event.getMessage();
             TextChannel channel = message.getTextChannel();
             String msg = message.getContentDisplay();
+                       
             if (msg.startsWith(Main.prefix)) {
                 String[] args = msg.substring(Main.prefix.length()).split(" ");
                 if (args[0].equalsIgnoreCase("whales")) {
@@ -43,20 +43,19 @@ public class DogeRate extends ListenerAdapter {
                     String statusCode = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean[0].getStatusCode());
                     String totalCurrentBalance = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean[0].getTotalCurrentBalance());
                     String totalPreviousBalance = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean[0].getTotalPreviousBalance());
-                    channel.sendMessage("**Doge Transactions \\| DOGE**").queue();
+                    channel.sendMessage("**Doge Transactions \\| DOGE**").queue();                   
                     EmbedBuilder dogeCost = new EmbedBuilder()
                             .setColor(Color.GREEN)
                             .setTitle("DOGE WHALES")
                             .setDescription("currentPercentage   ==> " + currentPercentage + "\n" + "currentPrice  ==>  " + currentPrice + "\n" + "estimatedPrice  ==>  " + estimatedPrice + "\n"
                                     + "percentageDiff  ==>  " + percentageDiff + "\n" + "statusCode  ==>  " + statusCode + "\n" + "totalCurrentBalance  ==>  " + totalCurrentBalance + "\n"
-                                    + "totalPreviousBalance   ==> " + totalPreviousBalance);
+                                    + "totalPreviousBalance   ==> " + totalPreviousBalance);                            
                     channel.sendMessage(dogeCost.build()).queue();
-                    Thread.sleep(15000);
+                    Thread.sleep(60000);
                     channel.sendMessage("$whales").queue();
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
