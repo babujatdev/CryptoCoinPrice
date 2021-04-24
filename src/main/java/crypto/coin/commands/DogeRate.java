@@ -1,5 +1,6 @@
 package crypto.coin.commands;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import crypto.coin.Main;
 import crypto.coin.beans.DogeRateBean;
@@ -19,36 +20,43 @@ import java.util.TimerTask;
 
 public class DogeRate extends ListenerAdapter {
 
+    public DogeRate() {
+    }
+
     @Override
     public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
         super.onGuildMessageReceived(event);
+
         try {
             Message message = event.getMessage();
-            String msg = message.getContentDisplay();
             TextChannel channel = message.getTextChannel();
-            Timer timer = new Timer();
-
-            /*if (msg.startsWith(Main.prefix)) {
-                String[] sys = msg.substring(Main.prefix.length()).split(" ");
-                if (sys[0].equalsIgnoreCase("b")) {
-                    DogeRateBean dogeRateBean = GsonService.getInstance().getGsonInstance().fromJson(HttpConnection.getJsonResponse("GET", URLs.dogerate).toString(), DogeRateBean.class);
-                    String dogeBalance = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean.getBalance());
-                    String dogeStatus = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean.getSuccess());
-                    channel.sendMessage("**DogeRate \\| DOGE**").queue();
+            String msg = message.getContentDisplay();
+            if (msg.startsWith(Main.prefix)) {
+                String[] args = msg.substring(Main.prefix.length()).split(" ");
+                if (args[0].equalsIgnoreCase("whales")) {
+                    DogeRateBean[] dogeRateBean = GsonService.getInstance().getGsonInstance().fromJson(HttpConnection.getJsonArrayResponse("GET", URLs.dogerate).toString(), DogeRateBean[].class);
+                    System.out.println("Gson  " + new Gson().toJson(HttpConnection.getJsonArrayResponse("GET", URLs.dogerate).toString()));
+                    String currentPercentage = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean[0].getCurrentPercentage());
+                    String currentPrice = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean[0].getCurrentPrice());
+                    String estimatedPrice = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean[0].getEstimatedPrice());
+                    String percentageDiff = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean[0].getPercentageDiff());
+                    String statusCode = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean[0].getStatusCode());
+                    String totalCurrentBalance = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean[0].getTotalCurrentBalance());
+                    String totalPreviousBalance = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean[0].getTotalPreviousBalance());
+                    channel.sendMessage("**Doge Transactions \\| DOGE**").queue();
                     EmbedBuilder dogeCost = new EmbedBuilder()
                             .setColor(Color.GREEN)
-                            .setTitle("DOGE")
-                            .setDescription("Balance   " + dogeBalance +"\n"+ "Success    "+dogeStatus);
+                            .setTitle("DOGE WHALES")
+                            .setDescription("currentPercentage   ==> " + currentPercentage + "\n" + "currentPrice  ==>  " + currentPrice + "\n" + "estimatedPrice  ==>  " + estimatedPrice + "\n"
+                                    + "percentageDiff  ==>  " + percentageDiff + "\n" + "statusCode  ==>  " + statusCode + "\n" + "totalCurrentBalance  ==>  " + totalCurrentBalance + "\n"
+                                    + "totalPreviousBalance   ==> " + totalPreviousBalance);
                     channel.sendMessage(dogeCost.build()).queue();
-                    timer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            channel.sendMessage("$b").queue();
-                        }
-                    },10000);
+                    Thread.sleep(15000);
+                    channel.sendMessage("$whales").queue();
                 }
-            }*/
-        } catch (Exception e) {
+            }
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }

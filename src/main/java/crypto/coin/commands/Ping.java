@@ -21,22 +21,21 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Ping extends ListenerAdapter {
+    Message message;
+    TextChannel channel;
+
+    public Ping(){
+    }
 
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         PingBean pingBean;
         try {
-            Message message = event.getMessage();
+            message = event.getMessage();
+            channel = message.getTextChannel();
             Guild guild = event.getGuild();
             String msg = message.getContentDisplay();
-            TextChannel channel = message.getTextChannel();
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    channel.sendMessage("$d").queue();
-                }
-            }, 15000);
+
             if (msg.startsWith(Main.prefix)) {
                 String[] args = msg.substring(Main.prefix.length()).split(" ");
                 pingBean = GsonService.getInstance().getGsonInstance().fromJson(HttpConnection.getJsonResponse("GET", URLs.ping).toString(), PingBean.class);
@@ -55,7 +54,8 @@ public class Ping extends ListenerAdapter {
                             .setFooter("ETHUSA", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Ethereum_logo_2014.svg/64px-Ethereum_logo_2014.svg.png");
 
                     channel.sendMessage(ebethPrice.build()).queue();
-                } else if (args[0].equalsIgnoreCase("d")) {
+                }
+                /*else if (args[0].equalsIgnoreCase("d")) {
                     DogeRateBean[] dogeRateBean = GsonService.getInstance().getGsonInstance().fromJson(HttpConnection.getJsonArrayResponse("GET", URLs.dogerate).toString(), DogeRateBean[].class);
                     System.out.println("Gson  "+new Gson().toJson(HttpConnection.getJsonArrayResponse("GET", URLs.dogerate).toString()));
                     String currentPercentage = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean[0].getCurrentPercentage());
@@ -73,7 +73,7 @@ public class Ping extends ListenerAdapter {
                                     + "percentageDiff    " + percentageDiff + "\n" + "statusCode    " + statusCode + "\n" + "totalCurrentBalance    " + totalCurrentBalance + "\n"
                                     + "totalPreviousBalance    " + totalPreviousBalance);
                     channel.sendMessage(dogeCost.build()).queue();
-                }
+                }*/
             }
         } catch (Exception e) {
             e.printStackTrace();
