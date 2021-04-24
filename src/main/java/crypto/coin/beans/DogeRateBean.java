@@ -1,7 +1,7 @@
 package crypto.coin.beans;
 
 public class DogeRateBean {
-    private String currentPercentage, percentageDiff, totalCurrentBalance, totalPreviousBalance, estimatedPrice, currentPrice, message;
+    private String currentPercentage, coinsPumpedDumped, totalCurrentBalance, totalPreviousBalance, estimatedPrice, currentPrice, message;
     private int statusCode;
 
     public String getCurrentPercentage() {
@@ -12,12 +12,12 @@ public class DogeRateBean {
         this.currentPercentage = currentPercentage;
     }
 
-    public String getPercentageDiff() {
-        return percentageDiff;
+    public String getCoinsPumpedDumped() {
+        return coinsPumpedDumped;
     }
 
-    public void setPercentageDiff(String percentageDiff) {
-        this.percentageDiff = percentageDiff;
+    public void setCoinsPumpedDumped(String coinsPumpedDumped) {
+        this.coinsPumpedDumped = coinsPumpedDumped;
     }
 
     public String getTotalCurrentBalance() {

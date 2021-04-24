@@ -39,7 +39,7 @@ public class DogeRate extends ListenerAdapter {
                     String currentPercentage = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean[0].getCurrentPercentage());
                     String currentPrice = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean[0].getCurrentPrice());
                     String estimatedPrice = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean[0].getEstimatedPrice());
-                    String percentageDiff = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean[0].getPercentageDiff());
+                    String coinsPumpedDumped = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean[0].getCoinsPumpedDumped());
                     String statusCode = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean[0].getStatusCode());
                     String totalCurrentBalance = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean[0].getTotalCurrentBalance());
                     String totalPreviousBalance = new GsonBuilder().setPrettyPrinting().create().toJson(dogeRateBean[0].getTotalPreviousBalance());
@@ -47,9 +47,9 @@ public class DogeRate extends ListenerAdapter {
                     EmbedBuilder dogeCost = new EmbedBuilder()
                             .setColor(Color.GREEN)
                             .setTitle("DOGE WHALES")
-                            .setDescription("currentPercentage   ==> " + currentPercentage + "\n" + "currentPrice  ==>  " + currentPrice + "\n" + "estimatedPrice  ==>  " + estimatedPrice + "\n"
-                                    + "percentageDiff  ==>  " + percentageDiff + "\n" + "statusCode  ==>  " + statusCode + "\n" + "totalCurrentBalance  ==>  " + totalCurrentBalance + "\n"
-                                    + "totalPreviousBalance   ==> " + totalPreviousBalance);                            
+                            .setDescription("Percentage Pumped or Dumped ==> " + currentPercentage + "\n" + "Current Price  ==>  " + currentPrice + "\n" + "Estimated Price  ==>  " + estimatedPrice + "\n"
+                                    + "Coins Pumped or Dumped ==>  " + coinsPumpedDumped + "\n" + "Status Code  ==>  " + statusCode + "\n" + "Current Balance  ==>  " + totalCurrentBalance + "\n"
+                                    + "Opening Balance   ==> " + totalPreviousBalance);
                     channel.sendMessage(dogeCost.build()).queue();
                     Thread.sleep(60000);
                     channel.sendMessage("$whales").queue();
