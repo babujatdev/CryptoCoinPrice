@@ -43,8 +43,8 @@ public class OpeningBalance extends ListenerAdapter {
                             .setTitle("Opening Balance")
                             .setDescription("message   ==> " + message + "\n" + "status Code  ==>  " + statusCode);
                     channel.sendMessage(dogeCost.build()).queue();
-                    Thread.sleep(86400);
-                    channel.sendMessage("$openingbalance").queue();
+                    //Thread.sleep(86400);
+                    //channel.sendMessage("$openingbalance").queue();
                 }
             }
         } catch (Exception e) {

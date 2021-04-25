@@ -26,9 +26,10 @@ public class DogeRate extends ListenerAdapter {
     @Override
     public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
         super.onGuildMessageReceived(event);
+        TextChannel channel = null;
         try {
             Message message = event.getMessage();
-            TextChannel channel = message.getTextChannel();
+            channel = message.getTextChannel();
             String msg = message.getContentDisplay();
                        
             if (msg.startsWith(Main.prefix)) {
@@ -51,10 +52,12 @@ public class DogeRate extends ListenerAdapter {
                                     + "Coins Pumped or Dumped ==>  " + coinsPumpedDumped + "\n" + "Status Code  ==>  " + statusCode + "\n" + "Current Balance  ==>  " + totalCurrentBalance + "\n"
                                     + "Opening Balance   ==> " + totalPreviousBalance);
                     channel.sendMessage(dogeCost.build()).queue();
-                    Thread.sleep(60000);
-                    channel.sendMessage("$whales").queue();
+                    //Thread.sleep(60000);
+                    //channel.sendMessage("$whales").queue();
                 }
             }
+        } catch (InterruptedException ie){
+            //channel.sendMessage("$whales").queue();
         } catch (Exception e) {
             e.printStackTrace();
         }
