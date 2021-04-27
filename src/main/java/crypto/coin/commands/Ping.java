@@ -24,7 +24,7 @@ public class Ping extends ListenerAdapter {
     Message message;
     TextChannel channel;
 
-    public Ping(){
+    public Ping() {
     }
 
     @Override

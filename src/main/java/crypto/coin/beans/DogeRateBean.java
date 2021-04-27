@@ -1,7 +1,7 @@
 package crypto.coin.beans;
 
 public class DogeRateBean {
-    private String currentPercentage, coinsPumpedDumped, totalCurrentBalance, totalPreviousBalance, estimatedPrice, currentPrice, message;
+    private String currentPercentage, coinsPumpedDumped, totalCurrentBalance, totalPreviousBalance, estimatedUSDT, currentUSDT, message;
     private int statusCode;
 
     public String getCurrentPercentage() {
@@ -36,20 +36,20 @@ public class DogeRateBean {
         this.totalPreviousBalance = totalPreviousBalance;
     }
 
-    public String getEstimatedPrice() {
-        return estimatedPrice;
+    public String getEstimatedUSDT() {
+        return estimatedUSDT;
     }
 
-    public void setEstimatedPrice(String estimatedPrice) {
-        this.estimatedPrice = estimatedPrice;
+    public void setEstimatedUSDT(String estimatedUSDT) {
+        this.estimatedUSDT = estimatedUSDT;
     }
 
-    public String getCurrentPrice() {
-        return currentPrice;
+    public String getCurrentUSDT() {
+        return currentUSDT;
     }
 
-    public void setCurrentPrice(String currentPrice) {
-        this.currentPrice = currentPrice;
+    public void setCurrentUSDT(String currentUSDT) {
+        this.currentUSDT = currentUSDT;
     }
 
     public String getMessage() {
